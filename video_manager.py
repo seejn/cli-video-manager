@@ -1,7 +1,7 @@
 import json
 import time
 
-file_name = "youtube.txt"
+file_name = "video_details.txt"
 
 def heading_view(title):
     sym = "x "
