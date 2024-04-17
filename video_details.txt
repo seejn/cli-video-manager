@@ -1,1 +1,1 @@
-[{"name": "nodeJS", "duration": "10 mins"}]
+[{"name": "javascript", "duration": "20 mins"}]
