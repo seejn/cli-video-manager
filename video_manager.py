@@ -119,11 +119,11 @@ def delete_video(videos):
 def main():
     videos = load_data()
     while True:
-        heading_view("Youtube Manager")
-        print("1. List all youtube videos")
-        print("2. Add new youtube video")
-        print("3. Update youtube video details")
-        print("4. Delete youtube video")
+        heading_view("Video Manager")
+        print("1. List all videos")
+        print("2. Add new video")
+        print("3. Update video details")
+        print("4. Delete video")
         print("5. Exit app")
 
         choice = input("Enter your choice: ")
