@@ -1,7 +1,15 @@
+import sqlite3
 from controller import *
+from db.SqliteDB import SqliteDB
+
+def db_init():
+    conn = sqlite3.connect("db/vid_man.db")
+    db = SqliteDB(conn)
+    return db
 
 def main():
-    videos = load_data()
+    db = db_init()
+
     while True:
         heading_view("Video Manager")
         print("1. List all videos")
@@ -14,13 +22,13 @@ def main():
         
         match choice:
             case '1':
-                list_all_videos(videos)
+                list_all_videos(db)
             case '2':
-                add_new_video(videos)
+                add_new_video(db)
             case '3':
-                update_video(videos)
+                update_video(db)
             case '4':
-                delete_video(videos)
+                delete_video(db)
             case '5':
                 break
             case _:
