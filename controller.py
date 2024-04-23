@@ -1,8 +1,6 @@
 import json
 import time
 
-file_name = "video_details.txt"
-
 def heading_view(title):
     sym = "x "
     length = 70
@@ -31,55 +29,41 @@ def notification_view(title):
     
     return
 
-def save_data_helper(videos):
-    with open(file_name, "w") as file:
-        json.dump(videos, file)
+def list_all_videos(db):
 
-    return
+    videos = db.get_data("videos")
 
-def load_data():
-    try:
-        with open(file_name, "r") as file:
-            return json.load(file)
-    except FileNotFoundError:
-        return []
-    return
-
-def list_all_videos(videos):
-    
     if not videos:
         notification_view("No Videos Available")
         time.sleep(1)
         return
 
     heading_view("Listing all Videos")
-
-    for index, video in enumerate(videos, start=1):
-        print(f"{index}. Name: {video['name']} || Duration: {video['duration']}")
+    for video in videos:
+        print(f"Id: {video[0]} || Name: {video[1]} || Duration: {video[2]}")
     
     time.sleep(1)
-    return
+    return videos
 
-def add_new_video(videos):
+def add_new_video(db):
     heading_view("Add new Video")
     name = input("Enter video name: ")
     duration = input("Enter video duration: ")
 
     new_video = {'name': name, 'duration': duration}
 
-    videos.append(new_video)
-    save_data_helper(videos)
+    db.insert_data("videos", new_video)
 
     notification_view(f"New video Added: {new_video}")
     time.sleep(1)
     return 
 
-def update_video(videos):
-    list_all_videos(videos)
+def update_video(db):
+    videos = list_all_videos(db)
+    index = int(input("Select video Id to update: "))
+    is_data_available = db.get_data("videos", id = index)
 
-    index = int(input("Select video number to update: ")) - 1
-
-    if not 0 <= index < len(videos):
+    if not is_data_available:
         notification_view("!!! Invalid option !!!")
         time.sleep(1)
         return
@@ -88,59 +72,38 @@ def update_video(videos):
     
     name = input("Enter name: ")
     duration = input("Enter duration: ")
-    new_details = {"name": name, "duration": duration}
-    videos[index] = new_details
-    save_data_helper(videos)
 
+    fields = ("name", "duration")
+    new_data = (name, duration, index)
+
+    db.update_data("videos", fields, new_data)
+
+    new_details = {"name": name, "duration": duration}
     notification_view(f"Updated video details: {new_details}")
+    
     time.sleep(1)
     
     return    
 
-def delete_video(videos):
-    list_all_videos(videos)
+def delete_video(db):
+    videos = list_all_videos(db)
+    index = int(input("Select video Id to delete: "))
+    
+    is_data_available = db.get_data("videos", id = index)
 
-    index = int(input("Select video number to delete: ")) - 1
-
-    if not 0 <= index < len(videos):
+    if not is_data_available:
         notification_view("!!! Invalid option !!!")
         time.sleep(1)
         return
 
-    del_result = videos.pop(index)
-    save_data_helper(videos)
+    db.delete_data("videos", index)
 
-    notification_view(f"Deleted video: {del_result}")
+    del_video = is_data_available
+
+    notification_view(f"Deleted video: {del_video}")
     time.sleep(1)
 
 
     return    
 
-def main():
-    videos = load_data()
-    while True:
-        heading_view("Video Manager")
-        print("1. List all videos")
-        print("2. Add new video")
-        print("3. Update video details")
-        print("4. Delete video")
-        print("5. Exit app")
 
-        choice = input("Enter your choice: ")
-        
-        match choice:
-            case '1':
-                list_all_videos(videos)
-            case '2':
-                add_new_video(videos)
-            case '3':
-                update_video(videos)
-            case '4':
-                delete_video(videos)
-            case '5':
-                break
-            case _:
-                print("Invalid Option")
-
-if __name__ == "__main__":
-    main()
