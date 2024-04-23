@@ -33,6 +33,7 @@ def main():
                 break
             case _:
                 print("Invalid Option")
+    db.close()
 
 if __name__ == "__main__":
     main()
