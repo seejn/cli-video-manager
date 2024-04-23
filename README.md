@@ -1,3 +1,20 @@
+### cli-video-manager
+- clone the repo
+'''
+git clone https://github.com/seejn/cli-video-manager
+'''
+'''
+cd cli-video-manager
+'''
+- migrate the db
+'''
+python/python3 migrate.py
+'''
+- run the application
+'''
+python/python3 main.py
+'''
+
 ### Screenshots
 - ![vm1](https://github.com/seejn/cli-video-manager/assets/52706007/1c997de1-256e-49f6-8af8-1219fdec05f4)
 - ![vm2](https://github.com/seejn/cli-video-manager/assets/52706007/4b9c07e7-e564-4eff-8268-a79581fcfc83)
