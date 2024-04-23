@@ -36,7 +36,7 @@ def list_all_videos(db):
     if not videos:
         notification_view("No Videos Available")
         time.sleep(1)
-        return
+        return None
 
     heading_view("Listing all Videos")
     for video in videos:
@@ -60,6 +60,8 @@ def add_new_video(db):
 
 def update_video(db):
     videos = list_all_videos(db)
+    if videos is None:
+        return
     index = int(input("Select video Id to update: "))
     is_data_available = db.get_data("videos", id = index)
 
@@ -87,6 +89,8 @@ def update_video(db):
 
 def delete_video(db):
     videos = list_all_videos(db)
+    if videos is None:
+        return
     index = int(input("Select video Id to delete: "))
     
     is_data_available = db.get_data("videos", id = index)
