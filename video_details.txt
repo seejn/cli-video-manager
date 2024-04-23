@@ -1,1 +1,0 @@
-[{"name": "python", "duration": "20 mins"}]
