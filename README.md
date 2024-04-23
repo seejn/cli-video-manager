@@ -1,7 +1,7 @@
 ### cli-video-manager
 - clone the repo
 ```
-git clone https://github.com/seejn/cli-video-manager
+git clone https://github.com/seejn/cli-video-manager.git
 ```
 ```
 cd cli-video-manager
